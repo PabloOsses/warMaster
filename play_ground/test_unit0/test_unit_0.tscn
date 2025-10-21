@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8twmi0inyvyk"]
+
+[ext_resource type="Script" uid="uid://t4rlxvsfhwyu" path="res://play_ground/test_unit0/test_unit_0.gd" id="1_jwa15"]
+[ext_resource type="Texture2D" uid="uid://cn1rukms0quk3" path="res://play_ground/assets dump/PhysicsCharacter.png" id="1_m810c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xo4oq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jwa15"]
+radius = 30.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nu4ju"]
+radius = 60.0
+
+[node name="test_unit0" type="CharacterBody2D" groups=["faction_player"]]
+script = ExtResource("1_jwa15")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_m810c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xo4oq")
+
+[node name="areamov" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areamov"]
+shape = SubResource("CircleShape2D_jwa15")
+debug_color = Color(1, 1, 1, 0.27451)
+
+[node name="areaDisparo" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areaDisparo"]
+shape = SubResource("CircleShape2D_nu4ju")
+
+[connection signal="mouse_entered" from="areamov" to="." method="_on_areamov_mouse_entered"]
+[connection signal="mouse_exited" from="areamov" to="." method="_on_areamov_mouse_exited"]
+[connection signal="mouse_entered" from="areaDisparo" to="." method="_on_area_disparo_mouse_entered"]
+[connection signal="mouse_exited" from="areaDisparo" to="." method="_on_area_disparo_mouse_exited"]

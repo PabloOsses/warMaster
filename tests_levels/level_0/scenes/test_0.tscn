@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://oqdmjmadmxxm"]
+
+[ext_resource type="Script" uid="uid://btwchn4xo7r8w" path="res://tests_levels/level_0/scripts/test_0.gd" id="1_op22o"]
+[ext_resource type="PackedScene" uid="uid://b8twmi0inyvyk" path="res://play_ground/test_unit0/test_unit_0.tscn" id="3_gbu3e"]
+[ext_resource type="PackedScene" uid="uid://b0cbqnwwixhyn" path="res://play_ground/camera/test_camera.tscn" id="4_gbu3e"]
+[ext_resource type="PackedScene" uid="uid://lb7bumx4nw4h" path="res://play_ground/controlador/controlador_movimiento.tscn" id="4_mik5b"]
+[ext_resource type="PackedScene" uid="uid://cfose7nydkuix" path="res://play_ground/enemy_test_unit/enemy_test.tscn" id="5_mik5b"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_gbu3e"]
+
+[node name="test_0" type="Node2D"]
+visible = false
+script = ExtResource("1_op22o")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1216.0
+offset_bottom = 730.0
+texture = SubResource("CanvasTexture_gbu3e")
+
+[node name="ControladorMovimiento" parent="." instance=ExtResource("4_mik5b")]
+position = Vector2(587, 322)
+
+[node name="UIComponent" type="Node" parent="."]
+
+[node name="test_camera" parent="UIComponent" instance=ExtResource("4_gbu3e")]
+position = Vector2(576, 325)
+
+[node name="Button" type="Button" parent="UIComponent/test_camera"]
+offset_left = 340.0
+offset_top = 175.0
+offset_right = 497.0
+offset_bottom = 253.0
+
+[node name="unidades_jugador" type="Node" parent="."]
+
+[node name="test_unit0" parent="unidades_jugador" instance=ExtResource("3_gbu3e")]
+position = Vector2(544, 311)
+scale = Vector2(2.49491, 2.49491)
+
+[node name="test_unit1" parent="unidades_jugador" instance=ExtResource("3_gbu3e")]
+position = Vector2(155, 275)
+
+[node name="unidades_enemigo" type="Node" parent="."]
+
+[node name="enemy_test" parent="unidades_enemigo" instance=ExtResource("5_mik5b")]
+position = Vector2(637, 328)

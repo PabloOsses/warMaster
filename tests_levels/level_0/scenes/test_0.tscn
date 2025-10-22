@@ -43,4 +43,4 @@ position = Vector2(155, 275)
 [node name="unidades_enemigo" type="Node" parent="."]
 
 [node name="enemy_test" parent="unidades_enemigo" instance=ExtResource("5_mik5b")]
-position = Vector2(637, 328)
+position = Vector2(956, 276)

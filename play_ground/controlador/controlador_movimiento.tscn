@@ -1,6 +1,48 @@
-[gd_scene load_steps=2 format=3 uid="uid://lb7bumx4nw4h"]
+[gd_scene load_steps=4 format=3 uid="uid://lb7bumx4nw4h"]
 
-[ext_resource type="Script" uid="uid://b0psxfvxyw1" path="res://play_ground/controlador/CURRENTcontrolador_mov.gd" id="1_027qt"]
+[ext_resource type="Script" uid="uid://o38p3vx3302u" path="res://play_ground/controlador/v1controlador.gd" id="1_027qt"]
+[ext_resource type="PackedScene" uid="uid://b0cbqnwwixhyn" path="res://play_ground/camera/test_camera.tscn" id="2_hwhkv"]
 
-[node name="ControladorMovimiento" type="Node2D"]
+[sub_resource type="LabelSettings" id="LabelSettings_hwhkv"]
+font_size = 30
+
+[node name="ControladorGm" type="Node2D"]
 script = ExtResource("1_027qt")
+
+[node name="UIComponent" type="Node" parent="."]
+
+[node name="VisionDeCampo" parent="UIComponent" instance=ExtResource("2_hwhkv")]
+position = Vector2(576, 325)
+
+[node name="cambioFase" type="Button" parent="UIComponent/VisionDeCampo"]
+offset_left = 280.0
+offset_top = 235.0
+offset_right = 437.0
+offset_bottom = 313.0
+text = "Fase"
+
+[node name="LabelPhase" type="Label" parent="UIComponent/VisionDeCampo"]
+offset_left = 293.0
+offset_top = 163.0
+offset_right = 375.0
+offset_bottom = 205.0
+text = "Fase: "
+label_settings = SubResource("LabelSettings_hwhkv")
+
+[node name="LabelJugador" type="Label" parent="UIComponent/VisionDeCampo"]
+offset_left = 13.0
+offset_top = 180.0
+offset_right = 125.0
+offset_bottom = 222.0
+text = "Jugador"
+label_settings = SubResource("LabelSettings_hwhkv")
+
+[node name="CambioJugador" type="Button" parent="UIComponent/VisionDeCampo"]
+offset_left = 5.0
+offset_top = 239.0
+offset_right = 197.0
+offset_bottom = 306.0
+text = "Cambio Jugador"
+
+[connection signal="pressed" from="UIComponent/VisionDeCampo/cambioFase" to="." method="_on_cambio_fase_pressed"]
+[connection signal="pressed" from="UIComponent/VisionDeCampo/CambioJugador" to="." method="_on_cambio_jugador_pressed"]

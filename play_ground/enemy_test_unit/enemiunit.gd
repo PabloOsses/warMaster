@@ -13,23 +13,36 @@ var units_wounds_pool:int= unit_size*unit_wounds
 @onready var radio_area_movimiento=$areamov/CollisionShape2D
 @onready var radio_area_disparo=$areaDisparo/CollisionShape2D
 
-@export var radio_movimiento_valor:float=30.0
+@export var radio_movimiento_valor:float=60.0
 var target_position: Vector2
 var moving: bool = false
 var dentro_radio_mov:bool=false
 var dentro_rango_disparo:bool=false
 
 var weaponLoadauts={
-	"gunTest": [120,4,0],
+	"gunTest": [240,4,0],
 }
 var weaponEquiped= weaponLoadauts["gunTest"]
 var weaponStreght=weaponLoadauts["gunTest"][1]
+###
+var mostrar_area_mov=false
+var mostrar_area_disp=false
 func _ready():
 	target_position = global_position
 	add_to_group("faction_enemy")
 	radio_area_movimiento.shape.radius=radio_movimiento_valor
 	radio_area_disparo.shape.radius=weaponEquiped[0]
+func _draw() -> void:
+	var border_colorV: Color = Color(0.2, 1.0, 0.2) # verde
+	var border_colorR: Color = Color(1.0, 0.2, 0.2)
+	var border_width: float = 1.0
+	#draw_arc(Vector2.ZERO, radio_area_movimiento.shape.radius, Color.WHITE)
+	if mostrar_area_mov:
+		draw_arc(Vector2.ZERO,  radio_area_movimiento.shape.radius, 0, TAU, 64, border_colorV, border_width)
+	elif mostrar_area_disp:	
+		draw_arc(Vector2.ZERO,  radio_area_disparo.shape.radius, 0, TAU, 64, border_colorR, border_width)
 func _process(delta):
+	queue_redraw()
 	if moving:
 		var dir = target_position - global_position
 		var distance = dir.length()

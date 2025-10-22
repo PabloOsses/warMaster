@@ -21,14 +21,13 @@ position = Vector2(587, 322)
 
 [node name="unidades_jugador" type="Node" parent="."]
 
-[node name="test_unit0" parent="unidades_jugador" instance=ExtResource("3_gbu3e")]
-position = Vector2(544, 311)
-scale = Vector2(2.49491, 2.49491)
-
 [node name="test_unit1" parent="unidades_jugador" instance=ExtResource("3_gbu3e")]
 position = Vector2(155, 275)
+
+[node name="test_unit0" parent="unidades_jugador" instance=ExtResource("3_gbu3e")]
+position = Vector2(152, 410)
 
 [node name="unidades_enemigo" type="Node" parent="."]
 
 [node name="enemy_unit0" parent="unidades_enemigo" instance=ExtResource("4_gbu3e")]
-position = Vector2(828, 345)
+position = Vector2(903, 270)

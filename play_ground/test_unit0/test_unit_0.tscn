@@ -11,7 +11,7 @@ radius = 30.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_nu4ju"]
 radius = 60.0
 
-[node name="test_unit0" type="CharacterBody2D" groups=["faction_player"]]
+[node name="test_unit0" type="CharacterBody2D" groups=["allUnit", "faction_player"]]
 script = ExtResource("1_jwa15")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

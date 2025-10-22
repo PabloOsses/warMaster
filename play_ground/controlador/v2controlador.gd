@@ -5,7 +5,9 @@ var enemy_unit: CharacterBody2D = null
 
 var cantUnitsJugador:int=0
 var cantUnitsEnemigo:int=0
-var currentPlayer="A"
+#currentPlayer y  standbyPlayer NO son constantes, cambian constantemente para el cambio de jugador actual
+var currentPlayer="faction_player"
+var standbyPlayer="faction_enemy"
 var phase = "moving"
 @onready var labelPhase:Label = $UIComponent/VisionDeCampo/LabelPhase
 @onready var labelJugador:Label=$UIComponent/VisionDeCampo/LabelJugador
@@ -17,7 +19,14 @@ func _ready():
 	cantUnitsEnemigo= (get_tree().get_nodes_in_group("faction_enemy")).size()
 	print("cant jugador: ", cantUnitsJugador)
 	print("cant Enemigo: ", cantUnitsEnemigo)
+	
 func _process(delta: float) -> void:
+	# IMPORTANTE click izquierdo → seleccionar unidad
+	cantUnitsJugador = (get_tree().get_nodes_in_group("faction_player")).size()
+	cantUnitsEnemigo= (get_tree().get_nodes_in_group("faction_enemy")).size()
+	if cantUnitsJugador<=0 or cantUnitsEnemigo<=0:
+		print("---GAME OVER---")
+		return
 	# IMPORTANTE click izquierdo → seleccionar unidad
 	if Input.is_action_just_pressed("left_click"):
 		var clicked_unit = _get_unit_under_mouse()
@@ -36,7 +45,7 @@ func _process(delta: float) -> void:
 	elif Input.is_action_just_pressed("right_click") and selected_unit==null:
 		print("NO HAY UNIDAD SELECCIONADA")
 		
-	elif Input.is_action_just_pressed("right_click") and selected_unit.is_in_group("faction_player"):
+	elif Input.is_action_just_pressed("right_click") and selected_unit.is_in_group(currentPlayer):
 		enemy_unit=_get_enemy_under_mouse()
 	#CONTACTO enemigo
 		match phase:
@@ -59,7 +68,7 @@ func _get_unit_under_mouse() -> CharacterBody2D:
 
 	for r in results:
 		var collider = r.get("collider")
-		if collider and collider.is_in_group("faction_player"):
+		if collider and collider.is_in_group(currentPlayer):
 			return collider
 		
 	return null
@@ -72,7 +81,7 @@ func _get_enemy_under_mouse() -> CharacterBody2D:
 
 	for r in results:
 		var collider = r.get("collider")
-		if collider and collider.is_in_group("faction_enemy"):
+		if collider and collider.is_in_group(standbyPlayer):
 			return collider
 	return null
 func _mov_phase()->void:
@@ -133,11 +142,30 @@ func _on_cambio_fase_pressed() -> void:
 
 
 func _on_cambio_jugador_pressed() -> void:
-	if currentPlayer == "A":
-		currentPlayer="B"
-	elif currentPlayer == "B":
-		currentPlayer="A"
+	if currentPlayer == "faction_player":
+		currentPlayer="faction_enemy"
+		standbyPlayer="faction_player"
+	elif currentPlayer == "faction_enemy":
+		currentPlayer="faction_player"
+		standbyPlayer="faction_enemy"
 	else:
 		print("PROBLEMA EN FASES")
 	labelJugador.text = "PLAYER: "+currentPlayer
+	pass # Replace with function body.
+
+
+func _on_see_area_pressed() -> void:
+	match phase:
+		"moving":
+			print("moving")
+			for i in get_tree().get_nodes_in_group("allUnit"):
+				i.mostrar_area_mov=true
+				i.mostrar_area_disp=false
+			
+			
+		"fire":
+			for i in get_tree().get_nodes_in_group("allUnit"):
+				print("fire")
+				i.mostrar_area_mov=false
+				i.mostrar_area_disp=true
 	pass # Replace with function body.

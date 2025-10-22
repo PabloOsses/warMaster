@@ -11,7 +11,7 @@ radius = 30.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_nu4ju"]
 radius = 60.0
 
-[node name="enemy_unit0" type="CharacterBody2D" groups=["faction_enemy"]]
+[node name="enemy_unit0" type="CharacterBody2D" groups=["allUnit", "faction_enemy"]]
 script = ExtResource("1_ye3ys")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
